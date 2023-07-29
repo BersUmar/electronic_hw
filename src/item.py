@@ -1,4 +1,7 @@
 import csv
+import os
+
+
 class Item:
     """
     Класс для представления товара в магазине.
@@ -22,11 +25,12 @@ class Item:
     @classmethod
     def instantiate_from_csv(cls):
         cls.all = []
-        path = "../src/items.csv"
+        path = os.path.abspath('../src/items.csv')
         with open(path, newline='', encoding='cp1251') as csvfile:
-            reader = csv.DictReader(csvfile)
+            reader: csv.DictReader = csv.DictReader(csvfile)
             for line in reader:
-                cls(line["name"], float(line["price"]), int(line["quantity"]))
+                name, price, quantity = line["name"], float(line["price"]), int(line["quantity"])
+                cls(name, price, quantity)
 
     @staticmethod
     def string_to_number(some: str):
@@ -57,8 +61,5 @@ class Item:
         Применяет установленную скидку для конкретного товара.
         """
         self.price = self.pay_rate * self.price
-
-
-
 
 
