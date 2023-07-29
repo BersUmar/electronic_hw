@@ -18,11 +18,23 @@ class Item:
         self.quantity = quantity
         self.all.append(self)
 
+    @classmethod
+    def instantiate_from_csv(cls):
+        cls.all = []
+        path = "../src/items.csv"
+        with open(path, newline='', encoding='UTF-8') as csvfile:
+            reader = csv.DictReader(csvfile)
+            for line in reader:
+                cls.all.append(line["name"])
+                cls.all.append(line["price"])
+                cls.all.append(line["quantity"])
+
     @property
-    def get_name(self):
+    def name(self):
         return self.__name
-    @get_name.setter
-    def get_name(self, name: str):
+
+    @name.setter
+    def name(self, name):
         if len(name) <= 10 and name.isalpha():
             self.__name = name
         elif len(name) > 10 and name.isalpha():
@@ -42,9 +54,6 @@ class Item:
         Применяет установленную скидку для конкретного товара.
         """
         self.price = self.pay_rate * self.price
-
-    def instantiate_from_csv(self):
-        pass
 
     def string_to_number(self):
         pass
