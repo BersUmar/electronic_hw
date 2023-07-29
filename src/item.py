@@ -28,6 +28,10 @@ class Item:
             for line in reader:
                 cls(line["name"], float(line["price"]), int(line["quantity"]))
 
+    @staticmethod
+    def string_to_number(some: str):
+        return int(float(some))
+
     @property
     def name(self):
         return self.__name
@@ -54,8 +58,6 @@ class Item:
         """
         self.price = self.pay_rate * self.price
 
-    @staticmethod
-    def string_to_number():
 
 
 
