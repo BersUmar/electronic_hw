@@ -22,6 +22,12 @@ class Item:
         self.quantity = quantity
         self.all.append(self)
 
+    def __repr__(self) -> str:
+        return f"{self.__class__.__name__}('{self.__name}', {self.price}, {self.quantity})"
+
+    def __str__(self):
+        return f'{self.__name}'
+
     @classmethod
     def instantiate_from_csv(cls):
         cls.all = []
@@ -47,7 +53,6 @@ class Item:
         elif len(name) > 10 and name.isalpha():
             self.__name = name[0:10]
 
-
     def calculate_total_price(self) -> float:
         """
         Рассчитывает общую стоимость конкретного товара в магазине.
@@ -61,5 +66,3 @@ class Item:
         Применяет установленную скидку для конкретного товара.
         """
         self.price = self.pay_rate * self.price
-
-

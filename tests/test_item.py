@@ -4,8 +4,16 @@
 from src.item import Item
 
 
+def test_repr(some_item):
+    isinstance(repr(some_item), str)
+    assert repr(some_item) == "Item('Смартфон', 30000, 5)"
+
+def test_str(some_item):
+    isinstance(str(some_item), str)
+    assert str(some_item) == "Смартфон"
+
 def test_item(some_item):
-    assert some_item.name == "смартфон"
+    assert some_item.name == "Смартфон"
     assert some_item.price == 30000
     assert some_item.quantity == 5
 
