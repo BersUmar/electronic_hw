@@ -1,5 +1,6 @@
 import csv
 import os
+import pathlib
 
 
 class Item:
@@ -31,7 +32,7 @@ class Item:
     @classmethod
     def instantiate_from_csv(cls):
         cls.all = []
-        path = os.path.abspath('../src/items.csv')
+        path = pathlib.Path(__file__).parent.joinpath('items.csv')
         with open(path, newline='', encoding='cp1251') as csvfile:
             reader: csv.DictReader = csv.DictReader(csvfile)
             for line in reader:
