@@ -10,3 +10,4 @@ def some_item():
 def some_phone():
     phone = Phone("Смартфон", 30000, 5, 2)
     return phone
+
