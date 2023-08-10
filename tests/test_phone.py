@@ -13,6 +13,8 @@ def test_self(some_phone):
     isinstance(some_phone.number_of_sim, int)
 
 def test_class(some_phone):
-    issubclass(some_phone, Item)
+    issubclass(some_phone.__class__, Item)
 
+def test_number_of_sim(some_phone):
+    assert some_phone.number_of_sim >= 1
 
