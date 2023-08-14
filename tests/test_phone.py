@@ -17,4 +17,6 @@ def test_class(some_phone):
 
 def test_number_of_sim(some_phone):
     assert some_phone.number_of_sim >= 1
+    some_phone.number_of_sim = 0
+    assert ValueError('Количество физических SIM-карт должно быть целым числом больше нуля.')
 
