@@ -2,6 +2,14 @@ import csv
 import pathlib
 
 
+class InstantiateCSVError(Exception):
+    def __init__(self, missing_column):
+        self.missing_column = missing_column
+
+    def __str__(self):
+        return f'Отсутствует колонка {self.missing_column}'
+
+
 class Item:
     """
     Класс для представления товара в магазине.
@@ -38,11 +46,21 @@ class Item:
     def instantiate_from_csv(cls):
         cls.all = []
         path = pathlib.Path(__file__).parent.joinpath('items.csv')
-        with open(path, newline='', encoding='cp1251') as csvfile:
-            reader: csv.DictReader = csv.DictReader(csvfile)
-            for line in reader:
-                name, price, quantity = line["name"], float(line["price"]), int(line["quantity"])
-                cls(name, price, quantity)
+        try:
+            with open(path, newline='', encoding='cp1251') as csvfile:
+                reader: csv.DictReader = csv.DictReader(csvfile)
+                for line in reader:
+                    if not line["name"]:
+                        raise InstantiateCSVError("name")
+                    elif not line["price"]:
+                        raise InstantiateCSVError("price")
+                    elif not line["quantity"]:
+                        raise InstantiateCSVError("quantity")
+                    cls(line["name"], float(line["price"]), int(line["quantity"]))
+        except FileNotFoundError as e:
+            print(f'Ошибка выполнения : {e}')
+        except InstantiateCSVError as er:
+            print(er)
 
     @staticmethod
     def string_to_number(some: str):
